@@ -5,7 +5,7 @@ export const ui = {
   card:
     "rounded-2xl border border-slate-200/70 bg-white/85 shadow-panel backdrop-blur-xl transition-all duration-300 dark:border-slate-700/70 dark:bg-slate-900/80 dark:shadow-panel-dark",
   hover:
-    "hover:-translate-y-0.5 hover:border-slate-300/80 hover:shadow-lg dark:hover:border-slate-600/80",
+    "hover:border-slate-300/80 hover:shadow-lg dark:hover:border-slate-600/80",
   panelHeaderBorder: "border-b border-slate-200/80 dark:border-slate-800/90",
   mutedText: "text-slate-500 dark:text-slate-400",
   strongText: "text-slate-900 dark:text-slate-100",

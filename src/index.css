@@ -95,6 +95,73 @@ body {
   animation: caret-blink 1s steps(1, end) infinite;
 }
 
+@media (min-width: 1280px) and (max-height: 900px) {
+  .dashboard-main-grid {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 11rem) !important;
+    gap: 0.625rem !important;
+  }
+
+  .dashboard-top-grid,
+  .dashboard-center-grid,
+  .dashboard-bottom-grid {
+    gap: 0.625rem !important;
+  }
+
+  .panel-subtitle {
+    display: none;
+  }
+
+  .portfolio-chart-placeholder {
+    height: 10rem !important;
+  }
+
+  .portfolio-chart-svg {
+    height: 5.25rem !important;
+    bottom: 0.5rem !important;
+  }
+
+  .dashboard-welcome-card {
+    padding: 0.75rem !important;
+  }
+
+  .dashboard-welcome-title {
+    margin-top: 0.25rem !important;
+    font-size: 1.35rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ai-widget-title {
+    font-size: 1rem !important;
+  }
+
+  .ai-widget-subtitle {
+    display: none;
+  }
+
+  .ai-widget-chips,
+  .ai-widget-tray-helper {
+    display: none;
+  }
+
+  .ai-widget-input-row {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .ai-widget-typing-stage {
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+  }
+
+  .ai-widget-tray {
+    margin-top: 0.5rem !important;
+  }
+
+  .portfolio-overview-card .text-xs {
+    line-height: 1.1 !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ticker-track {
     animation: none;

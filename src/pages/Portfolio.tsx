@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AIAgentWidget } from "../components/AIAgentWidget";
 import { Card } from "../components/Card";
 import { Navbar } from "../components/Navbar";
@@ -29,16 +30,16 @@ const timeRanges = ["1W", "1M", "3M", "1Y"] as const;
 
 function WelcomeCard() {
   return (
-    <Card className={`overflow-hidden p-5 ${ui.brandGlow}`}>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <Card className={`dashboard-welcome-card overflow-hidden p-4 ${ui.brandGlow}`}>
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
             Portfolio dashboard
           </p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
+          <h1 className="dashboard-welcome-title mt-1.5 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 xl:text-[1.75rem]">
             Welcome back Jack
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm">
+          <div className="mt-2 flex items-center gap-2 text-sm">
             <span className="text-slate-600 dark:text-slate-300">{portfolioHeadlineStats.totalValue}</span>
             <span className={cx("font-semibold", changeTextClass(portfolioHeadlineStats.dayChange))}>
               {portfolioHeadlineStats.pnl}
@@ -50,7 +51,7 @@ function WelcomeCard() {
           {welcomeStats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-slate-200/80 bg-white/90 px-3 py-2 dark:border-slate-700/70 dark:bg-slate-950/60"
+              className="rounded-xl border border-slate-200/80 bg-white/90 px-3 py-1.5 dark:border-slate-700/70 dark:bg-slate-950/60"
             >
               <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
                 {stat.label}
@@ -69,12 +70,12 @@ function PortfolioChartPlaceholder() {
     "0,130 45,122 85,118 130,98 175,106 220,92 265,80 310,88 355,62 400,72 445,54 490,60 535,38 580,44";
 
   return (
-    <div className="relative h-52 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/70 p-4 sm:h-56 lg:h-60 dark:border-slate-800 dark:bg-slate-950/40">
+    <div className="portfolio-chart-placeholder relative h-44 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/70 p-3 sm:h-48 xl:h-52 dark:border-slate-800 dark:bg-slate-950/40">
       <div className="chart-grid absolute inset-0 opacity-70 dark:opacity-40" />
-      <div className="absolute inset-x-4 top-4 flex items-center justify-between">
+      <div className="absolute inset-x-3 top-3 flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Total value</p>
-          <p className="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100">
+          <p className="mt-0.5 text-xl font-semibold text-slate-900 xl:text-2xl dark:text-slate-100">
             {portfolioHeadlineStats.totalValue}
           </p>
         </div>
@@ -83,7 +84,7 @@ function PortfolioChartPlaceholder() {
         </Pill>
       </div>
 
-      <svg viewBox="0 0 600 180" className="absolute inset-x-4 bottom-4 h-32 w-[calc(100%-2rem)] sm:h-36 lg:h-40">
+      <svg viewBox="0 0 600 180" className="portfolio-chart-svg absolute inset-x-3 bottom-3 h-24 w-[calc(100%-1.5rem)] sm:h-28 xl:h-32">
         <defs>
           <linearGradient id="chartGlow" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#38bdf8" />
@@ -113,18 +114,39 @@ function PortfolioChartPlaceholder() {
 }
 
 function PortfolioOverviewPanel() {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
   return (
-    <Panel
-      title="Portfolio overview"
-      subtitle="Visual chart placeholder for holdings performance"
-      headerRight={
+    <Card className="portfolio-overview-card min-h-0 overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-slate-200/80 px-4 py-3 dark:border-slate-800/90">
+        <button
+          type="button"
+          onClick={() => setIsCollapsed((prev) => !prev)}
+          className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-200/80 bg-white/70 px-3 py-2 text-left transition hover:border-brand-200 hover:bg-brand-50/40 dark:border-slate-700/70 dark:bg-slate-900/60 dark:hover:border-brand-500/20 dark:hover:bg-brand-500/5"
+          aria-expanded={!isCollapsed}
+        >
+          <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-200 dark:bg-brand-500/12 dark:text-brand-300 dark:ring-brand-500/20">
+            {isCollapsed ? "▸" : "▾"}
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+              Portfolio overview
+            </span>
+            <span className="block truncate text-xs text-slate-500 dark:text-slate-400">
+              {isCollapsed
+                ? "Chart minimised on open. Expand to inspect holdings performance."
+                : "Visual chart placeholder for holdings performance"}
+            </span>
+          </span>
+        </button>
+
         <div className="flex items-center gap-1 rounded-xl border border-slate-200/80 bg-white/70 p-1 dark:border-slate-700/70 dark:bg-slate-900/60">
           {timeRanges.map((range) => (
             <button
               key={range}
               type="button"
               className={cx(
-                "rounded-lg px-3 py-1.5 text-xs font-medium transition",
+                "rounded-lg px-2.5 py-1.5 text-xs font-medium transition",
                 range === "1M"
                   ? "bg-brand-600 text-white shadow-sm"
                   : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
@@ -134,11 +156,14 @@ function PortfolioOverviewPanel() {
             </button>
           ))}
         </div>
-      }
-      className="h-full min-h-0"
-    >
-      <PortfolioChartPlaceholder />
-    </Panel>
+      </div>
+
+      {!isCollapsed ? (
+        <div className="px-4 py-3">
+          <PortfolioChartPlaceholder />
+        </div>
+      ) : null}
+    </Card>
   );
 }
 
@@ -150,11 +175,11 @@ function MostSearchedPanel() {
       bodyClassName="p-0"
       className="h-full min-h-0"
     >
-      <div className="h-full divide-y divide-slate-200/80 overflow-y-auto dark:divide-slate-800/90">
+      <div className="h-full divide-y divide-slate-200/80 overflow-y-auto overscroll-contain pr-1 dark:divide-slate-800/90">
         {mostSearchedStocks.map((item) => (
           <div
             key={item.ticker}
-            className="grid grid-cols-[36px_minmax(0,1fr)_auto_auto] items-center gap-3 px-4 py-3 transition hover:bg-slate-50/80 dark:hover:bg-slate-800/30"
+            className="grid grid-cols-[36px_minmax(0,1fr)_auto_auto] items-center gap-3 px-4 py-2.5 transition hover:bg-slate-50/80 dark:hover:bg-slate-800/30"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
               {item.rank}
@@ -212,15 +237,15 @@ function UpcomingDividendsPanel() {
                 key={`${row.ticker}-${row.exDivDate}`}
                 className="border-b border-slate-100/90 text-sm transition hover:bg-slate-50/80 dark:border-slate-800/60 dark:hover:bg-slate-800/30"
               >
-                <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">{row.ticker}</td>
-                <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{row.exDivDate}</td>
-                <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{row.payDate}</td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-2.5 font-semibold text-slate-900 dark:text-slate-100">{row.ticker}</td>
+                <td className="px-4 py-2.5 text-slate-600 dark:text-slate-300">{row.exDivDate}</td>
+                <td className="px-4 py-2.5 text-slate-600 dark:text-slate-300">{row.payDate}</td>
+                <td className="px-4 py-2.5">
                   <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/12 dark:text-emerald-300 dark:ring-emerald-500/20">
                     {row.yieldPct.toFixed(1)}%
                   </span>
                 </td>
-                <td className="px-4 py-3 font-medium text-slate-700 dark:text-slate-200">{row.amount}</td>
+                <td className="px-4 py-2.5 font-medium text-slate-700 dark:text-slate-200">{row.amount}</td>
               </tr>
             ))}
           </tbody>
@@ -241,10 +266,10 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
           <TickerRibbon items={tickerRibbonItems} />
         </div>
 
-        <main className="flex-1 min-h-0 overflow-hidden px-4 pb-4 pt-4 sm:px-6 lg:px-8">
-          <div className="flex h-full min-h-0 flex-col gap-4 overflow-y-auto xl:overflow-hidden">
-            <div className="grid min-h-0 items-start gap-4 xl:flex-1 xl:grid-cols-[340px_minmax(0,1fr)]">
-              <aside className="grid min-h-0 content-start gap-4 xl:grid-rows-[auto_minmax(0,1fr)]">
+        <main className="flex-1 min-h-0 overflow-hidden px-4 pb-3 pt-3 sm:px-6 lg:px-8">
+          <div className="dashboard-main-grid flex h-full min-h-0 flex-col gap-3 overflow-y-auto xl:grid xl:grid-rows-[minmax(0,1fr)_minmax(0,15rem)] xl:overflow-hidden">
+            <div className="dashboard-top-grid grid min-h-0 items-stretch gap-3 xl:grid-cols-[320px_minmax(0,1fr)]">
+              <aside className="grid min-h-0 gap-3 xl:grid-rows-[auto_minmax(0,1fr)]">
                 <StatCard
                   title="Portfolio Score"
                   value={portfolioScore.score}
@@ -254,16 +279,18 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
                 <StoriesCard stories={portfolioStories} />
               </aside>
 
-              <section className="flex min-h-0 flex-col gap-4">
+              <section className="dashboard-center-grid grid min-h-0 gap-3 xl:grid-rows-[auto_auto_minmax(0,1fr)]">
                 <WelcomeCard />
-                <div className="min-h-0 xl:flex-1">
+                <div className="min-h-0">
                   <PortfolioOverviewPanel />
                 </div>
-                <AIAgentWidget suggestions={aiSuggestions} />
+                <div className="min-h-0 xl:h-full">
+                  <AIAgentWidget suggestions={aiSuggestions} />
+                </div>
               </section>
             </div>
 
-            <div className="grid min-h-0 gap-4 xl:h-[30%] xl:min-h-[14rem] xl:grid-cols-2">
+            <div className="dashboard-bottom-grid grid min-h-0 gap-3 xl:grid-cols-2">
               <MostSearchedPanel />
               <UpcomingDividendsPanel />
             </div>
