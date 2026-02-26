@@ -20,14 +20,14 @@ export function Panel({
 }: PanelProps) {
   return (
     <Card className={cx("flex min-h-0 flex-col overflow-hidden", className)} {...props}>
-      <div className={cx("flex items-start justify-between gap-3 px-5 py-4", ui.panelHeaderBorder)}>
+      <div className={cx("flex items-start justify-between gap-3 px-4 py-3 xl:px-4 xl:py-3", ui.panelHeaderBorder)}>
         <div>
           <h2 className={cx("text-sm font-semibold tracking-wide", ui.strongText)}>{title}</h2>
-          {subtitle ? <p className={cx("mt-1 text-xs", ui.mutedText)}>{subtitle}</p> : null}
+          {subtitle ? <p className={cx("panel-subtitle mt-0.5 text-xs", ui.mutedText)}>{subtitle}</p> : null}
         </div>
         {headerRight ? <div className="shrink-0">{headerRight}</div> : null}
       </div>
-      <div className={cx("min-h-0 flex-1 px-5 py-4", bodyClassName)}>{children}</div>
+      <div className={cx("min-h-0 flex-1 px-4 py-3 xl:px-4 xl:py-3", bodyClassName)}>{children}</div>
     </Card>
   );
 }
