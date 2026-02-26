@@ -1,0 +1,89 @@
+import { cx } from "../lib/designTokens";
+import { Pill } from "./Pill";
+import { ThemeToggle, type ThemeMode } from "./ThemeToggle";
+
+interface NavbarProps {
+  theme: ThemeMode;
+  onToggleTheme: () => void;
+}
+
+type NavItem = {
+  label: string;
+  locked?: boolean;
+  active?: boolean;
+};
+
+const navItems: NavItem[] = [
+  { label: "News", locked: true },
+  { label: "Competition", locked: true },
+  { label: "Stock Screener" },
+  { label: "Portfolio", active: true },
+  { label: "Learn" },
+  { label: "Account" }
+];
+
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
+      <path
+        d="M6.75 8V6.75a3.25 3.25 0 1 1 6.5 0V8m-7.5 0h8.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-.75.75h-8.5a.75.75 0 0 1-.75-.75v-5.5A.75.75 0 0 1 5.75 8Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function NavButton({ item }: { item: NavItem }) {
+  return (
+    <button
+      type="button"
+      className={cx(
+        "inline-flex shrink-0 items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium transition",
+        item.active
+          ? "bg-brand-50 text-brand-700 ring-1 ring-brand-200 dark:bg-brand-500/12 dark:text-brand-300 dark:ring-brand-500/20"
+          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/80 dark:hover:text-white",
+      )}
+    >
+      {item.locked ? <LockIcon /> : null}
+      <span>{item.label}</span>
+      {item.active ? <Pill variant="accent">Active</Pill> : null}
+    </button>
+  );
+}
+
+export function Navbar({ theme, onToggleTheme }: NavbarProps) {
+  return (
+    <header className="sticky top-0 z-30 px-4 pt-4 sm:px-6 lg:px-8">
+      <div className="rounded-2xl border border-slate-200/80 bg-white/85 px-3 py-2 shadow-panel backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-950/75 dark:shadow-panel-dark">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {navItems.slice(0, 3).map((item) => (
+              <NavButton key={item.label} item={item} />
+            ))}
+
+            <div className="mx-1 shrink-0">
+              <div className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-500 to-cyan-400 px-3 py-2 text-white shadow-md">
+                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/20 text-xs font-bold">
+                  OB
+                </div>
+                <div className="leading-tight">
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-white/80">OpenBook</p>
+                  <p className="text-xs font-semibold">Analytics</p>
+                </div>
+              </div>
+            </div>
+
+            {navItems.slice(3).map((item) => (
+              <NavButton key={item.label} item={item} />
+            ))}
+          </div>
+
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        </div>
+      </div>
+    </header>
+  );
+}
