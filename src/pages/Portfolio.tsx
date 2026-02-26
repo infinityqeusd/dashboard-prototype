@@ -150,7 +150,7 @@ function MostSearchedPanel() {
       bodyClassName="p-0"
       className="h-full min-h-0"
     >
-      <div className="h-full divide-y divide-slate-200/80 overflow-y-auto dark:divide-slate-800/90">
+      <div className="h-full divide-y divide-slate-200/80 overflow-y-auto overscroll-contain pr-1 dark:divide-slate-800/90">
         {mostSearchedStocks.map((item) => (
           <div
             key={item.ticker}
@@ -242,9 +242,9 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
         </div>
 
         <main className="flex-1 min-h-0 overflow-hidden px-4 pb-4 pt-4 sm:px-6 lg:px-8">
-          <div className="flex h-full min-h-0 flex-col gap-4 overflow-y-auto xl:overflow-hidden">
-            <div className="grid min-h-0 items-start gap-4 xl:flex-1 xl:grid-cols-[340px_minmax(0,1fr)]">
-              <aside className="grid min-h-0 content-start gap-4 xl:grid-rows-[auto_minmax(0,1fr)]">
+          <div className="flex h-full min-h-0 flex-col gap-4 overflow-y-auto xl:grid xl:grid-rows-[minmax(0,1fr)_minmax(0,18rem)] xl:overflow-hidden">
+            <div className="grid min-h-0 items-stretch gap-4 xl:grid-cols-[340px_minmax(0,1fr)]">
+              <aside className="grid min-h-0 gap-4 xl:grid-rows-[auto_minmax(0,1fr)]">
                 <StatCard
                   title="Portfolio Score"
                   value={portfolioScore.score}
@@ -254,16 +254,18 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
                 <StoriesCard stories={portfolioStories} />
               </aside>
 
-              <section className="flex min-h-0 flex-col gap-4">
+              <section className="grid min-h-0 gap-4 xl:grid-rows-[auto_minmax(0,1fr)_auto]">
                 <WelcomeCard />
-                <div className="min-h-0 xl:flex-1">
+                <div className="min-h-0">
                   <PortfolioOverviewPanel />
                 </div>
-                <AIAgentWidget suggestions={aiSuggestions} />
+                <div className="min-h-0">
+                  <AIAgentWidget suggestions={aiSuggestions} />
+                </div>
               </section>
             </div>
 
-            <div className="grid min-h-0 gap-4 xl:h-[30%] xl:min-h-[14rem] xl:grid-cols-2">
+            <div className="grid min-h-0 gap-4 xl:grid-cols-2">
               <MostSearchedPanel />
               <UpcomingDividendsPanel />
             </div>

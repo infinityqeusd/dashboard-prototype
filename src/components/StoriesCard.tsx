@@ -28,7 +28,7 @@ export function StoriesCard({ stories }: StoriesCardProps) {
       bodyClassName="p-0"
       className="h-full min-h-0"
     >
-      <ul className="h-full divide-y divide-slate-200/80 overflow-y-auto dark:divide-slate-800/90">
+      <ul className="h-full divide-y divide-slate-200/80 overflow-y-auto overscroll-contain pr-1 dark:divide-slate-800/90">
         {stories.map((story) => (
           <li
             key={story.id}
