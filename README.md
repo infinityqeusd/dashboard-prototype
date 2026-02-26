@@ -27,7 +27,7 @@ npm run dev
 
 ## What's included (visual-only)
 
-- Premium dashboard UI layout for a UK portfolio experience
+- Premium dashboard UI layout 
 - Light theme (default) and optional dark theme toggle with `localStorage` persistence
 - Auto-scrolling ticker ribbon (mock LSE-style tickers)
 - Portfolio score card and UK-focused top stories panel
