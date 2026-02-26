@@ -91,22 +91,24 @@ export function Navbar({ theme, onToggleTheme }: NavbarProps) {
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
 
-        <div className="hidden xl:grid xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto] xl:items-center xl:gap-3">
-          <div className="flex min-w-0 items-center gap-2">
-            {leftItems.map((item) => (
-              <NavButton key={item.label} item={item} />
-            ))}
+        <div className="hidden xl:flex xl:items-center xl:gap-3">
+          <div className="flex min-w-0 flex-1 items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-2">
+              {leftItems.map((item) => (
+                <NavButton key={item.label} item={item} />
+              ))}
+            </div>
+
+            <div className="shrink-0">{logo}</div>
+
+            <div className="flex min-w-0 items-center gap-2">
+              {rightItems.map((item) => (
+                <NavButton key={item.label} item={item} />
+              ))}
+            </div>
           </div>
 
-          <div className="justify-self-center">{logo}</div>
-
-          <div className="flex min-w-0 items-center justify-end gap-2">
-            {rightItems.map((item) => (
-              <NavButton key={item.label} item={item} />
-            ))}
-          </div>
-
-          <div className="justify-self-end">
+          <div className="shrink-0">
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           </div>
         </div>

@@ -74,7 +74,7 @@ export function AIAgentWidget({ suggestions }: AIAgentWidgetProps) {
     <Panel
       title="Where to now?"
       subtitle="OpenBook AI agent prompt bar (visual-only)"
-      className={`mx-auto w-full max-w-3xl ${ui.brandGlow}`}
+      className={`w-full ${ui.brandGlow}`}
     >
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
