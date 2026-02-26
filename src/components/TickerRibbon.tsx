@@ -5,6 +5,20 @@ interface TickerRibbonProps {
   items: TickerItem[];
 }
 
+function TickerChip({ item }: { item: TickerItem }) {
+  return (
+    <div
+      className="relative z-0 flex shrink-0 snap-start items-center gap-2 rounded-xl border border-slate-200/70 bg-white/90 px-3 py-1.5 text-sm shadow-sm transition duration-200 hover:z-20 hover:scale-[1.015] hover:shadow-md dark:border-slate-700/80 dark:bg-slate-900/90"
+    >
+      <span className="font-semibold text-slate-900 dark:text-slate-100">{item.ticker}</span>
+      <span className="text-xs text-slate-500 dark:text-slate-400">{item.name}</span>
+      <span className={cx("text-xs font-semibold", changeTextClass(item.change24h))}>
+        {formatSignedPercent(item.change24h)}
+      </span>
+    </div>
+  );
+}
+
 export function TickerRibbon({ items }: TickerRibbonProps) {
   const loopItems = [...items, ...items];
 
@@ -14,19 +28,20 @@ export function TickerRibbon({ items }: TickerRibbonProps) {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white via-white/70 to-transparent dark:from-slate-950 dark:via-slate-950/60" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white via-white/70 to-transparent dark:from-slate-950 dark:via-slate-950/60" />
 
-        <div className="ticker-track flex w-max items-center gap-2 px-2 py-1 hover:[animation-play-state:paused]">
-          {loopItems.map((item, index) => (
-            <div
-              key={`${item.ticker}-${index}`}
-              className="relative z-0 flex shrink-0 items-center gap-2 rounded-xl border border-slate-200/70 bg-white/90 px-3 py-1.5 text-sm shadow-sm transition duration-200 hover:z-20 hover:scale-[1.015] hover:shadow-md dark:border-slate-700/80 dark:bg-slate-900/90"
-            >
-              <span className="font-semibold text-slate-900 dark:text-slate-100">{item.ticker}</span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">{item.name}</span>
-              <span className={cx("text-xs font-semibold", changeTextClass(item.change24h))}>
-                {formatSignedPercent(item.change24h)}
-              </span>
-            </div>
-          ))}
+        <div className="sm:hidden overflow-x-auto px-2 py-1 [scrollbar-width:none] snap-x snap-mandatory touch-pan-x [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-max items-center gap-2 pr-8">
+            {items.map((item) => (
+              <TickerChip key={item.ticker} item={item} />
+            ))}
+          </div>
+        </div>
+
+        <div className="hidden sm:block">
+          <div className="ticker-track flex w-max items-center gap-2 px-2 py-1 hover:[animation-play-state:paused]">
+            {loopItems.map((item, index) => (
+              <TickerChip key={`${item.ticker}-${index}`} item={item} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
