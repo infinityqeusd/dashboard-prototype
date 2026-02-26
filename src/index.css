@@ -130,6 +130,14 @@ body {
     line-height: 1.2 !important;
   }
 
+  .ai-widget-title {
+    font-size: 1rem !important;
+  }
+
+  .ai-widget-subtitle {
+    display: none;
+  }
+
   .ai-widget-chips,
   .ai-widget-tray-helper {
     display: none;
@@ -140,8 +148,17 @@ body {
     padding-bottom: 0.5rem !important;
   }
 
+  .ai-widget-typing-stage {
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+  }
+
   .ai-widget-tray {
     margin-top: 0.5rem !important;
+  }
+
+  .portfolio-overview-card .text-xs {
+    line-height: 1.1 !important;
   }
 }
 

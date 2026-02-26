@@ -7,6 +7,9 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   subtitle?: string;
   headerRight?: ReactNode;
   bodyClassName?: string;
+  headerClassName?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
 }
 
 export function Panel({
@@ -15,15 +18,26 @@ export function Panel({
   headerRight,
   className,
   bodyClassName,
+  headerClassName,
+  titleClassName,
+  subtitleClassName,
   children,
   ...props
 }: PanelProps) {
   return (
     <Card className={cx("flex min-h-0 flex-col overflow-hidden", className)} {...props}>
-      <div className={cx("flex items-start justify-between gap-3 px-4 py-3 xl:px-4 xl:py-3", ui.panelHeaderBorder)}>
+      <div
+        className={cx(
+          "flex items-start justify-between gap-3 px-4 py-3 xl:px-4 xl:py-3",
+          ui.panelHeaderBorder,
+          headerClassName,
+        )}
+      >
         <div>
-          <h2 className={cx("text-sm font-semibold tracking-wide", ui.strongText)}>{title}</h2>
-          {subtitle ? <p className={cx("panel-subtitle mt-0.5 text-xs", ui.mutedText)}>{subtitle}</p> : null}
+          <h2 className={cx("text-sm font-semibold tracking-wide", ui.strongText, titleClassName)}>{title}</h2>
+          {subtitle ? (
+            <p className={cx("panel-subtitle mt-0.5 text-xs", ui.mutedText, subtitleClassName)}>{subtitle}</p>
+          ) : null}
         </div>
         {headerRight ? <div className="shrink-0">{headerRight}</div> : null}
       </div>
