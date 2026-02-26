@@ -173,9 +173,9 @@ function MostSearchedPanel() {
       title="Most searched UK stocks on Reddit/Stocktwits"
       subtitle="Visual sentiment leaderboard (mock mentions)"
       bodyClassName="p-0"
-      className="h-full min-h-0"
+      className="lg:h-full lg:min-h-0"
     >
-      <div className="h-full divide-y divide-slate-200/80 overflow-y-auto overscroll-contain pr-1 dark:divide-slate-800/90">
+      <div className="divide-y divide-slate-200/80 dark:divide-slate-800/90 lg:h-full lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
         {mostSearchedStocks.map((item) => (
           <div
             key={item.ticker}
@@ -218,9 +218,9 @@ function UpcomingDividendsPanel() {
       title="Upcoming dividends"
       subtitle="UK holdings dividend calendar (mock)"
       bodyClassName="p-0"
-      className="h-full min-h-0"
+      className="lg:h-full lg:min-h-0"
     >
-      <div className="h-full overflow-auto">
+      <div className="overflow-auto lg:h-full">
         <table className="min-w-full text-left">
           <thead>
             <tr className="sticky top-0 z-10 border-b border-slate-200/80 bg-slate-50/90 text-[11px] uppercase tracking-[0.14em] text-slate-500 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-400">
@@ -257,8 +257,8 @@ function UpcomingDividendsPanel() {
 
 export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
   return (
-    <div className="h-[100dvh] overflow-hidden bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <div className="app-shell relative flex h-full min-h-0 flex-col overflow-hidden">
+    <div className="min-h-[100dvh] overflow-x-hidden bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100 lg:h-[100dvh] lg:overflow-hidden">
+      <div className="app-shell relative flex min-h-[100dvh] flex-col overflow-visible lg:h-full lg:min-h-0 lg:overflow-hidden">
         <div className="shrink-0">
           <Navbar theme={theme} onToggleTheme={onToggleTheme} />
         </div>
@@ -266,10 +266,10 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
           <TickerRibbon items={tickerRibbonItems} />
         </div>
 
-        <main className="flex-1 min-h-0 overflow-hidden px-4 pb-3 pt-3 sm:px-6 lg:px-8">
-          <div className="dashboard-main-grid flex h-full min-h-0 flex-col gap-3 overflow-y-auto xl:grid xl:grid-rows-[minmax(0,1fr)_minmax(0,15rem)] xl:overflow-hidden">
-            <div className="dashboard-top-grid grid min-h-0 items-stretch gap-3 xl:grid-cols-[320px_minmax(0,1fr)]">
-              <aside className="grid min-h-0 gap-3 xl:grid-rows-[auto_minmax(0,1fr)]">
+        <main className="flex-1 overflow-visible px-4 pb-4 pt-3 sm:px-6 lg:min-h-0 lg:overflow-hidden lg:px-8 lg:pb-3">
+          <div className="dashboard-main-grid flex flex-col gap-3 overflow-visible lg:h-full lg:min-h-0 lg:grid lg:grid-rows-[minmax(0,1fr)_minmax(0,15rem)] lg:overflow-hidden">
+            <div className="dashboard-top-grid grid items-stretch gap-3 lg:min-h-0 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
+              <aside className="grid gap-3 lg:min-h-0 lg:grid-rows-[auto_minmax(0,1fr)]">
                 <StatCard
                   title="Portfolio Score"
                   value={portfolioScore.score}
@@ -279,18 +279,18 @@ export function Portfolio({ theme, onToggleTheme }: PortfolioProps) {
                 <StoriesCard stories={portfolioStories} />
               </aside>
 
-              <section className="dashboard-center-grid grid min-h-0 gap-3 xl:grid-rows-[auto_auto_minmax(0,1fr)]">
+              <section className="dashboard-center-grid grid gap-3 lg:min-h-0 lg:grid-rows-[auto_auto_minmax(0,1fr)]">
                 <WelcomeCard />
-                <div className="min-h-0">
+                <div className="lg:min-h-0">
                   <PortfolioOverviewPanel />
                 </div>
-                <div className="min-h-0 xl:h-full">
+                <div className="lg:min-h-0 lg:h-full">
                   <AIAgentWidget suggestions={aiSuggestions} />
                 </div>
               </section>
             </div>
 
-            <div className="dashboard-bottom-grid grid min-h-0 gap-3 xl:grid-cols-2">
+            <div className="dashboard-bottom-grid grid gap-3 lg:min-h-0 lg:grid-cols-2">
               <MostSearchedPanel />
               <UpcomingDividendsPanel />
             </div>

@@ -26,9 +26,9 @@ export function StoriesCard({ stories }: StoriesCardProps) {
       title="YOUR PORTFOLIO TOP STORIES"
       subtitle="Visual-only curated headlines for UK holdings"
       bodyClassName="p-0"
-      className="h-full min-h-0"
+      className="lg:h-full lg:min-h-0"
     >
-      <ul className="h-full divide-y divide-slate-200/80 overflow-y-auto overscroll-contain pr-1 dark:divide-slate-800/90">
+      <ul className="divide-y divide-slate-200/80 dark:divide-slate-800/90 lg:h-full lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
         {stories.map((story) => (
           <li
             key={story.id}
